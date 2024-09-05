@@ -2,7 +2,7 @@ package ru.tbank.converter
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.tbank.converter.Errors.{MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException, WrongCurrencyException}
+import ru.tbank.converter.Errors.{CurrencyMismatchException, MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException}
 
 class MoneySpec extends AnyFlatSpec with Matchers {
   "apply" should "accept valid non negative amounts" in {
@@ -21,10 +21,10 @@ class MoneySpec extends AnyFlatSpec with Matchers {
     an[MoneyAmountShouldBeNonNegativeException] should be thrownBy Money(BigDecimal("-15"), "RUB")
   }
 
-  it should "throw WrongCurrencyException for not supported currencies" in {
-    an[WrongCurrencyException] should be thrownBy Money(BigDecimal(13.2), "CHF")
-    an[WrongCurrencyException] should be thrownBy Money(BigDecimal(1000), "GBP")
-    an[WrongCurrencyException] should be thrownBy Money(BigDecimal(15320.67), "DZD")
+  it should "throw UnsupportedCurrencyException for not supported currencies" in {
+    an[UnsupportedCurrencyException] should be thrownBy Money(BigDecimal(13.2), "CHF")
+    an[UnsupportedCurrencyException] should be thrownBy Money(BigDecimal(1000), "GBP")
+    an[UnsupportedCurrencyException] should be thrownBy Money(BigDecimal(15320.67), "DZD")
   }
 
   "+" should "operate with same currencies" in {
@@ -33,10 +33,10 @@ class MoneySpec extends AnyFlatSpec with Matchers {
     (amount1 + amount2) shouldEqual Money(BigDecimal(600.5), "RUB")
   }
 
-  it should "throw WrongCurrencyException for different currencies" in {
+  it should "throw CurrencyMismatchException for different currencies" in {
     val amount1 = Money(BigDecimal("100.5"), "USD")
     val amount2 = Money(BigDecimal("500.0"), "RUB")
-    an[WrongCurrencyException] should be thrownBy amount1 + amount2
+    an[CurrencyMismatchException] should be thrownBy amount1 + amount2
   }
 
   "-" should "operate with same currencies" in {
@@ -45,10 +45,10 @@ class MoneySpec extends AnyFlatSpec with Matchers {
     (amount2 - amount1) shouldEqual Money(BigDecimal(399.5), "RUB")
   }
 
-  it should "throw WrongCurrencyException for different currencies" in {
+  it should "throw CurrencyMismatchException for different currencies" in {
     val amount1 = Money(BigDecimal("100.5"), "USD")
     val amount2 = Money(BigDecimal("500.0"), "RUB")
-    an[WrongCurrencyException] should be thrownBy amount2 - amount1
+    an[CurrencyMismatchException] should be thrownBy amount2 - amount1
   }
 
   it should "throw MoneyAmountShouldBeNonNegativeException if the result would become negative" in {

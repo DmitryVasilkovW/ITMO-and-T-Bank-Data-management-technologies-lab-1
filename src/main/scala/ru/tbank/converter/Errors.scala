@@ -5,5 +5,7 @@ object Errors {
 
   class UnsupportedCurrencyException extends Exception
 
-  class WrongCurrencyException extends Exception
+  class CurrencyMismatchException extends Exception
+
+  class SameCurrencyExchangeException extends Exception
 }

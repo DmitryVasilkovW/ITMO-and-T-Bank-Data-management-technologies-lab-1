@@ -2,7 +2,7 @@ package ru.tbank.converter
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.tbank.converter.Errors.UnsupportedCurrencyException
+import ru.tbank.converter.Errors.{SameCurrencyExchangeException, UnsupportedCurrencyException}
 
 class CurrencyConverterSpec extends AnyFlatSpec with Matchers {
   "exchange" should "convert money for supported currencies" in {
@@ -18,6 +18,15 @@ class CurrencyConverterSpec extends AnyFlatSpec with Matchers {
     exchangedRub.currency shouldEqual "RUB"
     exchangedUsd.amount shouldEqual BigDecimal(1 / 7.25)
     exchangedUsd.currency shouldEqual "USD"
+  }
+
+  it should "throw SameCurrencyExchangeException if source and target currencies are the same" in {
+    val rates = Map(
+      "USD" -> Map("RUB" -> BigDecimal(72.5)),
+      "RUB" -> Map("USD" -> BigDecimal(1 / 72.5))
+    )
+    val converter = CurrencyConverter(rates)
+    a[SameCurrencyExchangeException] should be thrownBy converter.exchange(Money(1, "USD"), "USD")
   }
 
   "converted constructor" should "throw UnsupportedCurrencyException if rates dictionary contains wrong currency" in {
