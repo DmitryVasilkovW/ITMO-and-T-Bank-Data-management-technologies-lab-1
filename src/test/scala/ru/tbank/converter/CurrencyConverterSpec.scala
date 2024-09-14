@@ -3,10 +3,7 @@ package ru.tbank.converter
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import ru.tbank.converter.models.Money
-import ru.tbank.converter.myExceptions.Errors.{
-  SameCurrencyExchangeException,
-  UnsupportedCurrencyException
-}
+import ru.tbank.converter.myExceptions.Errors.{SameCurrencyExchangeException, UnsupportedCurrencyException}
 import ru.tbank.converter.services.CurrencyConverter
 
 class CurrencyConverterSpec extends AnyFlatSpec with Matchers {

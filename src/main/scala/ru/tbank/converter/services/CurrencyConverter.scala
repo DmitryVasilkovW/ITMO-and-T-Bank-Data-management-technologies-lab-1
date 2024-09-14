@@ -1,10 +1,7 @@
 package ru.tbank.converter.services
 
 import ru.tbank.converter.models.Money
-import ru.tbank.converter.myExceptions.Errors.{
-  SameCurrencyExchangeException,
-  UnsupportedCurrencyException
-}
+import ru.tbank.converter.myExceptions.Errors.{SameCurrencyExchangeException, UnsupportedCurrencyException}
 
 class CurrencyConverter(ratesDictionary: Map[String, Map[String, BigDecimal]]) {
   def exchange(money: Money, toCurrency: String): Money = {

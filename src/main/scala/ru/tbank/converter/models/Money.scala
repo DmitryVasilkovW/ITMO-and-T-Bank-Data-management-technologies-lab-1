@@ -1,13 +1,8 @@
 package ru.tbank.converter.models
 
-import ru.tbank.converter.myExceptions.Errors.{
-  CurrencyMismatchException,
-  MoneyAmountShouldBeNonNegativeException,
-  UnsupportedCurrencyException
-}
+import ru.tbank.converter.myExceptions.Errors.{CurrencyMismatchException, MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException}
 
 import scala.annotation.targetName
-
 
 case class Money private (amount: BigDecimal, currency: String) {
 
