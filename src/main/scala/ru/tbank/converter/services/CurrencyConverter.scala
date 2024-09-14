@@ -1,10 +1,36 @@
 package ru.tbank.converter.services
 
 import ru.tbank.converter.models.Money
-import ru.tbank.converter.myExceptions.Errors.UnsupportedCurrencyException
+import ru.tbank.converter.myExceptions.Errors.{
+  SameCurrencyExchangeException,
+  UnsupportedCurrencyException
+}
 
 class CurrencyConverter(ratesDictionary: Map[String, Map[String, BigDecimal]]) {
-  def exchange(money: Money, toCurrency: String): Money = ???
+  def exchange(money: Money, toCurrency: String): Money = {
+    if (money.currency == toCurrency || money.currency.equals(toCurrency)) {
+      throw new SameCurrencyExchangeException
+    }
+
+    val rate = getRate(money, toCurrency)
+
+    val newAmount = money.amount * rate
+    Money(newAmount, toCurrency)
+  }
+
+  private def getRate(money: Money, toCurrency: String): BigDecimal = {
+    val ratesForCurrency = ratesDictionary.getOrElse(
+      money.currency,
+      throw new UnsupportedCurrencyException
+    )
+
+    val rate = ratesForCurrency.getOrElse(
+      toCurrency,
+      throw new UnsupportedCurrencyException
+    )
+
+    rate
+  }
 }
 
 object CurrencyConverter {
