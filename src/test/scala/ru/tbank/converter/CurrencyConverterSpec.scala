@@ -2,7 +2,7 @@ package ru.tbank.converter
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.tbank.converter.Errors.{SameCurrencyExchangeException, UnsupportedCurrencyException}
+import ru.tbank.converter.myExceptions.Errors.{SameCurrencyExchangeException, UnsupportedCurrencyException}
 
 class CurrencyConverterSpec extends AnyFlatSpec with Matchers {
   "exchange" should "convert money for supported currencies" in {

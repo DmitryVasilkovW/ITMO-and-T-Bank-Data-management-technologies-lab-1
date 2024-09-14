@@ -1,6 +1,7 @@
-package ru.tbank.converter
+package ru.tbank.converter.services
 
-import Errors.UnsupportedCurrencyException
+import ru.tbank.converter.models.Money
+import ru.tbank.converter.myExceptions.Errors.UnsupportedCurrencyException
 
 class CurrencyConverter(ratesDictionary: Map[String, Map[String, BigDecimal]]) {
   def exchange(money: Money, toCurrency: String): Money = ???
@@ -8,7 +9,7 @@ class CurrencyConverter(ratesDictionary: Map[String, Map[String, BigDecimal]]) {
 
 object CurrencyConverter {
 
-  import Currencies.SupportedCurrencies
+  import ru.tbank.converter.models.Currencies.SupportedCurrencies
 
   def apply(ratesDictionary: Map[String, Map[String, BigDecimal]]): CurrencyConverter = {
     val fromCurrencies = ratesDictionary.keys

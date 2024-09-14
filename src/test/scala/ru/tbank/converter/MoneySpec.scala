@@ -2,7 +2,7 @@ package ru.tbank.converter
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.tbank.converter.Errors.{CurrencyMismatchException, MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException}
+import ru.tbank.converter.myExceptions.Errors.{CurrencyMismatchException, MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException}
 
 class MoneySpec extends AnyFlatSpec with Matchers {
   "apply" should "accept valid non negative amounts" in {

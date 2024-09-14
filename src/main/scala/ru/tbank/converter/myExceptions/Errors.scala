@@ -1,4 +1,4 @@
-package ru.tbank.converter
+package ru.tbank.converter.myExceptions
 
 object Errors {
   class MoneyAmountShouldBeNonNegativeException extends Exception
@@ -8,4 +8,6 @@ object Errors {
   class CurrencyMismatchException extends Exception
 
   class SameCurrencyExchangeException extends Exception
+  
+  class NotSameCurrencyException extends Exception
 }
