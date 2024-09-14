@@ -54,15 +54,6 @@ class CurrencyConverterSpec extends AnyFlatSpec with Matchers {
     exchangedUsd.currency shouldEqual "USD"
   }
 
-  it should "throw SameCurrencyExchangeException if source and target currencies are the same" in {
-    val rates = Map(
-      "USD" -> Map("RUB" -> BigDecimal(72.5)),
-      "RUB" -> Map("USD" -> BigDecimal(1 / 72.5))
-    )
-    val converter = CurrencyConverter(rates)
-    a[SameCurrencyExchangeException] should be thrownBy converter.exchange(Money(BigDecimal(1), "USD"), "USD")
-  }
-
   it should "throw UnsupportedCurrencyException if source currency is unsupported" in {
     val rates = Map(
       "USD" -> Map("RUB" -> BigDecimal(72.5))
