@@ -2,7 +2,12 @@ package ru.tbank.converter
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ru.tbank.converter.myExceptions.Errors.{CurrencyMismatchException, MoneyAmountShouldBeNonNegativeException, UnsupportedCurrencyException}
+import ru.tbank.converter.models.Money
+import ru.tbank.converter.myExceptions.Errors.{
+  CurrencyMismatchException,
+  MoneyAmountShouldBeNonNegativeException,
+  UnsupportedCurrencyException
+}
 
 class MoneySpec extends AnyFlatSpec with Matchers {
   "apply" should "accept valid non negative amounts" in {
@@ -58,10 +63,14 @@ class MoneySpec extends AnyFlatSpec with Matchers {
   }
 
   "isSameCurrency" should "return true if currencies are the same" in {
-    ???
+    val amount1 = Money(BigDecimal(239), "EUR")
+    val amount2 = Money(BigDecimal(239), "EUR")
+    amount1.isSameCurrency(amount2) shouldEqual true
   }
 
   it should "return false if currencies are different" in {
-    ???
+    val amount1 = Money(BigDecimal(239), "EUR")
+    val amount2 = Money(BigDecimal(239), "RUB")
+    amount1.isSameCurrency(amount2) shouldEqual false
   }
 }

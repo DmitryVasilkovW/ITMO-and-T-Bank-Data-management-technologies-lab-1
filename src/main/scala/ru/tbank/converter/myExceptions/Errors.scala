@@ -8,6 +8,4 @@ object Errors {
   class CurrencyMismatchException extends Exception
 
   class SameCurrencyExchangeException extends Exception
-  
-  class NotSameCurrencyException extends Exception
 }

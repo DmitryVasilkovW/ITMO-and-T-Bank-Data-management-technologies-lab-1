@@ -1,8 +1,8 @@
 package ru.tbank.converter.models
 
 import ru.tbank.converter.myExceptions.Errors.{
+  CurrencyMismatchException,
   MoneyAmountShouldBeNonNegativeException,
-  NotSameCurrencyException,
   UnsupportedCurrencyException
 }
 
@@ -15,7 +15,7 @@ case class Money private (amount: BigDecimal, currency: String) {
   def +(other: Money): Money = {
     checkIsCurrenciesAreSame(other)
 
-    new Money(this.amount.+(amount), this.currency)
+    new Money(this.amount.+(other.amount), this.currency)
   }
 
   @targetName("subtractMoney")
@@ -34,7 +34,7 @@ case class Money private (amount: BigDecimal, currency: String) {
 
   private def checkIsCurrenciesAreSame(other: Money): Unit = {
     if (!isSameCurrency(other)) {
-      throw new NotSameCurrencyException
+      throw new CurrencyMismatchException
     }
   }
 
